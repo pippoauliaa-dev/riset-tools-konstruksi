@@ -114,6 +114,7 @@ Dashboard menyediakan KPI ringkas, ranking peluang, matriks dampak vs reach, wor
 ## Isi repository
 
 - [Dashboard HTML](index.html)
+- [Spec Project Data Bridge](docs/project-data-bridge-design.md)
 - [Laporan riset lengkap](docs/riset-celah-tools-konstruksi-indonesia.md)
 - [Sumber dan keterbatasan riset](docs/riset-celah-tools-konstruksi-indonesia.md#keterbatasan-riset)
 
