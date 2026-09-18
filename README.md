@@ -105,8 +105,15 @@ Validasi sebelum membangun aplikasi penuh:
 - ukur cost leakage yang ditemukan, pekerjaan tambah yang berhasil ditagihkan, dan waktu laporan yang dihemat;
 - lanjut membangun software hanya jika ada minimal 3 pilot dan minimal 2 pelanggan bersedia membayar.
 
+## Dashboard HTML
+
+Buka versi visual interaktif: **[Dashboard Riset Konstruksi](https://pippoauliaa-dev.github.io/riset-tools-konstruksi/)**
+
+Dashboard menyediakan KPI ringkas, ranking peluang, matriks dampak vs reach, workflow produk, filter kategori, mode gelap, tooltip, dan tabel detail.
+
 ## Isi repository
 
+- [Dashboard HTML](index.html)
 - [Laporan riset lengkap](docs/riset-celah-tools-konstruksi-indonesia.md)
 - [Sumber dan keterbatasan riset](docs/riset-celah-tools-konstruksi-indonesia.md#keterbatasan-riset)
 

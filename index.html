@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Dashboard visual desk research peluang tools digital untuk industri konstruksi Indonesia.">
+  <meta name="theme-color" content="#f9f9f7">
+  <title>Celah Tools Konstruksi — Dashboard Riset</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --page: #f9f9f7;
+      --surface: #fcfcfb;
+      --surface-2: #f2f2ee;
+      --ink: #0b0b0b;
+      --ink-2: #52514e;
+      --muted: #898781;
+      --grid: #e1e0d9;
+      --axis: #c3c2b7;
+      --border: rgba(11, 11, 11, .11);
+      --blue-100: #cde2fb;
+      --blue-200: #9ec5f4;
+      --blue-300: #6da7ec;
+      --blue-400: #3987e5;
+      --blue-500: #2a78d6;
+      --blue-600: #1c5cab;
+      --blue-700: #104281;
+      --orange: #eb6834;
+      --aqua: #1baf7a;
+      --red: #e34948;
+      --success: #006300;
+      --warning: #a86400;
+      --shadow: 0 20px 60px rgba(27, 36, 48, .08);
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-sm: 10px;
+    }
+
+    [data-theme="dark"] {
+      color-scheme: dark;
+      --page: #0d0d0d;
+      --surface: #1a1a19;
+      --surface-2: #242422;
+      --ink: #fff;
+      --ink-2: #c3c2b7;
+      --muted: #989790;
+      --grid: #2c2c2a;
+      --axis: #383835;
+      --border: rgba(255, 255, 255, .12);
+      --blue-100: #184f95;
+      --blue-200: #1c5cab;
+      --blue-300: #3987e5;
+      --blue-400: #5598e7;
+      --blue-500: #3987e5;
+      --blue-600: #6da7ec;
+      --blue-700: #9ec5f4;
+      --success: #0ca30c;
+      --warning: #fab219;
+      --shadow: 0 20px 60px rgba(0, 0, 0, .24);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--page);
+      color: var(--ink);
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    button, select { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid var(--blue-400); outline-offset: 3px; }
+
+    .shell { max-width: 1240px; margin: 0 auto; padding: 0 28px 64px; }
+    .topbar {
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+      padding: 22px 0 18px; border-bottom: 1px solid var(--border);
+    }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .brand-mark {
+      display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px;
+      color: #fff; background: var(--blue-600); font-weight: 800; letter-spacing: -.08em;
+      box-shadow: 0 8px 18px rgba(42, 120, 214, .24);
+    }
+    .brand-text { font-size: 14px; font-weight: 750; letter-spacing: -.01em; }
+    .brand-sub { display: block; color: var(--muted); font-size: 11px; font-weight: 500; margin-top: 1px; }
+    .top-actions { display: flex; align-items: center; gap: 8px; }
+    .icon-button, .ghost-button {
+      border: 1px solid var(--border); background: var(--surface); color: var(--ink-2);
+      border-radius: 10px; padding: 9px 12px; transition: .18s ease;
+    }
+    .icon-button { width: 40px; height: 40px; padding: 0; display: grid; place-items: center; }
+    .icon-button:hover, .ghost-button:hover { border-color: var(--blue-400); color: var(--ink); transform: translateY(-1px); }
+
+    .hero { display: grid; grid-template-columns: 1.3fr .7fr; gap: 30px; padding: 62px 0 40px; align-items: end; }
+    .eyebrow { color: var(--blue-600); font-size: 12px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+    h1 { max-width: 760px; font-size: clamp(38px, 6vw, 72px); line-height: .99; letter-spacing: -.065em; margin: 14px 0 20px; }
+    .hero-copy { max-width: 670px; color: var(--ink-2); font-size: 17px; }
+    .hero-copy strong { color: var(--ink); }
+    .hero-note { border-left: 3px solid var(--blue-500); padding: 8px 0 8px 18px; color: var(--ink-2); font-size: 14px; }
+    .hero-note strong { display: block; color: var(--ink); font-size: 26px; letter-spacing: -.04em; margin-bottom: 4px; }
+
+    .filterbar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 14px; border: 1px solid var(--border); background: var(--surface); border-radius: var(--radius-md); box-shadow: var(--shadow); margin-bottom: 22px; }
+    .filter-label { color: var(--muted); font-size: 12px; font-weight: 750; margin-right: 4px; }
+    .filter { border: 1px solid transparent; background: transparent; color: var(--ink-2); padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 650; }
+    .filter:hover { background: var(--surface-2); color: var(--ink); }
+    .filter[aria-pressed="true"] { background: var(--blue-500); color: #fff; box-shadow: 0 5px 13px rgba(42, 120, 214, .23); }
+    .filter-spacer { flex: 1; }
+    .view-note { color: var(--muted); font-size: 12px; }
+
+    .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 18px; }
+    .kpi { padding: 20px; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); box-shadow: var(--shadow); }
+    .kpi-label { color: var(--ink-2); font-size: 12px; font-weight: 700; }
+    .kpi-value { display: block; font-size: 34px; line-height: 1; letter-spacing: -.06em; margin: 12px 0 8px; font-variant-numeric: tabular-nums; }
+    .kpi-detail { color: var(--muted); font-size: 12px; }
+    .kpi-accent { color: var(--blue-600); }
+
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin: 56px 0 18px; }
+    .section-heading h2 { margin: 0; font-size: 24px; letter-spacing: -.045em; }
+    .section-heading p { margin: 4px 0 0; color: var(--ink-2); font-size: 14px; }
+    .section-kicker { color: var(--muted); font-size: 12px; font-weight: 700; }
+
+    .panel { border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); box-shadow: var(--shadow); }
+    .panel-pad { padding: 24px; }
+    .chart-grid { display: grid; grid-template-columns: 1.12fr .88fr; gap: 18px; }
+    .chart-title { margin: 0 0 5px; font-size: 16px; letter-spacing: -.025em; }
+    .chart-subtitle { margin: 0 0 24px; color: var(--muted); font-size: 12px; }
+    .legend { display: flex; gap: 14px; flex-wrap: wrap; margin: 0 0 20px; color: var(--ink-2); font-size: 12px; }
+    .legend-item { display: inline-flex; align-items: center; gap: 7px; }
+    .legend-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--blue-500); }
+    .legend-dot.orange { background: var(--orange); }
+    .legend-dot.aqua { background: var(--aqua); }
+    .legend-dot.red { background: var(--red); }
+
+    .bar-chart { display: grid; gap: 12px; }
+    .bar-row { display: grid; grid-template-columns: minmax(132px, 1.1fr) 2fr 38px; gap: 11px; align-items: center; }
+    .bar-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink-2); font-size: 12px; }
+    .bar-track { height: 12px; overflow: hidden; border-radius: 999px; background: var(--surface-2); }
+    .bar-fill { height: 100%; min-width: 5px; border-radius: 999px; background: linear-gradient(90deg, var(--blue-300), var(--blue-600)); transform-origin: left; animation: grow .7s ease both; }
+    .bar-value { color: var(--ink); text-align: right; font-size: 13px; font-weight: 800; font-variant-numeric: tabular-nums; }
+    @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+    .matrix-wrap { position: relative; min-height: 310px; padding: 8px 10px 26px 34px; }
+    .matrix { position: relative; height: 258px; border-left: 1px solid var(--axis); border-bottom: 1px solid var(--axis); background: repeating-linear-gradient(to top, transparent 0, transparent calc(25% - 1px), var(--grid) 25%); }
+    .matrix::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(to right, transparent 0, transparent calc(25% - 1px), var(--grid) 25%); opacity: .8; pointer-events: none; }
+    .axis-x, .axis-y { position: absolute; color: var(--muted); font-size: 11px; }
+    .axis-x { bottom: -25px; left: 0; right: 0; display: flex; justify-content: space-between; }
+    .axis-y { top: -7px; bottom: 0; left: -31px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end; }
+    .axis-caption { position: absolute; color: var(--muted); font-size: 11px; }
+    .axis-caption.x { bottom: -47px; left: 50%; transform: translateX(-50%); }
+    .axis-caption.y { top: 50%; left: -72px; transform: rotate(-90deg) translateX(-50%); transform-origin: left top; }
+    .matrix-dot { position: absolute; width: 16px; height: 16px; border: 2px solid var(--surface); border-radius: 50%; background: var(--blue-600); box-shadow: 0 0 0 1px rgba(16, 66, 129, .18), 0 5px 12px rgba(16, 66, 129, .25); transform: translate(-50%, 50%); transition: .18s ease; }
+    .matrix-dot:hover, .matrix-dot:focus-visible { z-index: 2; width: 22px; height: 22px; background: var(--blue-500); }
+    .matrix-dot.priority-high { background: var(--blue-700); }
+    .matrix-dot.priority-mid { background: var(--blue-500); }
+    .matrix-dot.priority-low { background: var(--blue-300); }
+    .matrix-tip { position: absolute; z-index: 4; display: none; width: 190px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); box-shadow: var(--shadow); font-size: 12px; pointer-events: none; }
+    .matrix-dot:hover + .matrix-tip, .matrix-dot:focus-visible + .matrix-tip { display: block; }
+    .matrix-tip strong { display: block; margin-bottom: 3px; color: var(--ink); }
+    .matrix-tip span { color: var(--ink-2); }
+
+    .workflow { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; align-items: stretch; }
+    .workflow-step { position: relative; padding: 17px 12px; border: 1px solid var(--border); border-right: 0; background: var(--surface); min-height: 124px; }
+    .workflow-step:first-child { border-radius: 14px 0 0 14px; }
+    .workflow-step:last-child { border-right: 1px solid var(--border); border-radius: 0 14px 14px 0; }
+    .workflow-step::after { content: "→"; position: absolute; z-index: 1; top: 46px; right: -12px; width: 23px; height: 23px; display: grid; place-items: center; border-radius: 50%; background: var(--blue-500); color: #fff; font-size: 13px; font-weight: 800; }
+    .workflow-step:last-child::after { display: none; }
+    .step-no { color: var(--blue-500); font-size: 11px; font-weight: 850; }
+    .step-title { display: block; margin-top: 9px; font-size: 13px; font-weight: 750; line-height: 1.2; }
+    .step-desc { display: block; margin-top: 8px; color: var(--muted); font-size: 11px; line-height: 1.35; }
+
+    .opportunity-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .opportunity { padding: 20px; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); transition: .18s ease; }
+    .opportunity:hover { transform: translateY(-3px); border-color: var(--blue-300); box-shadow: var(--shadow); }
+    .opportunity-top { display: flex; justify-content: space-between; gap: 10px; align-items: start; }
+    .opportunity-rank { color: var(--blue-600); font-size: 12px; font-weight: 850; }
+    .score-pill { border-radius: 999px; padding: 4px 8px; background: var(--blue-100); color: var(--blue-700); font-size: 11px; font-weight: 850; font-variant-numeric: tabular-nums; }
+    .opportunity h3 { margin: 13px 0 8px; font-size: 17px; line-height: 1.15; letter-spacing: -.03em; }
+    .opportunity p { min-height: 62px; margin: 0; color: var(--ink-2); font-size: 12px; }
+    .tag-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 18px; }
+    .tag { border-radius: 999px; padding: 5px 8px; background: var(--surface-2); color: var(--ink-2); font-size: 10px; font-weight: 750; }
+
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    th { padding: 11px 12px; color: var(--muted); border-bottom: 1px solid var(--border); text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
+    td { padding: 14px 12px; border-bottom: 1px solid var(--border); color: var(--ink-2); vertical-align: top; }
+    tr:last-child td { border-bottom: 0; }
+    td:first-child { color: var(--ink); font-weight: 750; }
+    .score-cell { color: var(--blue-600); font-weight: 850; font-variant-numeric: tabular-nums; }
+    .category-chip { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+    .category-chip::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--blue-500); }
+    .category-chip.commercial::before { background: var(--orange); }
+    .category-chip.field::before { background: var(--aqua); }
+    .category-chip.safety::before { background: var(--red); }
+    .empty-state { padding: 32px; color: var(--muted); text-align: center; }
+
+    .sources { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .source { display: flex; gap: 13px; padding: 17px; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); text-decoration: none; }
+    .source:hover { border-color: var(--blue-400); }
+    .source-no { display: grid; place-items: center; flex: 0 0 27px; height: 27px; border-radius: 8px; background: var(--blue-100); color: var(--blue-700); font-size: 11px; font-weight: 850; }
+    .source strong { display: block; color: var(--ink); font-size: 12px; line-height: 1.3; }
+    .source span { display: block; margin-top: 4px; color: var(--muted); font-size: 11px; }
+
+    .footer { display: flex; justify-content: space-between; gap: 20px; padding-top: 48px; color: var(--muted); font-size: 12px; }
+    .footer a { color: var(--blue-600); font-weight: 700; }
+    .reveal { opacity: 0; transform: translateY(12px); animation: reveal .65s ease forwards; }
+    .reveal:nth-child(2) { animation-delay: .08s; } .reveal:nth-child(3) { animation-delay: .16s; }
+    @keyframes reveal { to { opacity: 1; transform: none; } }
+
+    @media (max-width: 920px) {
+      .hero, .chart-grid { grid-template-columns: 1fr; }
+      .workflow { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+      .workflow-step, .workflow-step:first-child, .workflow-step:last-child { border: 1px solid var(--border); border-radius: 12px; }
+      .workflow-step::after { display: none; }
+      .opportunity-list { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .shell { padding: 0 16px 42px; }
+      .topbar { padding-top: 15px; }
+      .hero { padding: 42px 0 30px; }
+      h1 { font-size: 43px; }
+      .kpi-grid, .opportunity-list, .sources { grid-template-columns: 1fr 1fr; }
+      .kpi { padding: 15px; } .kpi-value { font-size: 28px; }
+      .kpi-detail { font-size: 11px; }
+      .panel-pad { padding: 18px 15px; }
+      .bar-row { grid-template-columns: minmax(98px, 1.1fr) 1.7fr 28px; gap: 7px; }
+      .bar-label { font-size: 11px; }
+      .workflow { grid-template-columns: 1fr 1fr; }
+      .workflow-step { min-height: 108px; }
+      .footer { flex-direction: column; }
+    }
+    @media (max-width: 420px) {
+      .kpi-grid, .opportunity-list, .sources { grid-template-columns: 1fr; }
+      .filter-spacer, .view-note { display: none; }
+      .filterbar { gap: 4px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell" id="dashboard">
+    <header class="topbar">
+      <a class="brand" href="#dashboard" aria-label="Kembali ke awal dashboard">
+        <span class="brand-mark" aria-hidden="true">KT</span>
+        <span class="brand-text">Konstruksi Tools<span class="brand-sub">Opportunity research · Indonesia</span></span>
+      </a>
+      <div class="top-actions">
+        <a class="ghost-button" href="docs/riset-celah-tools-konstruksi-indonesia.md">Baca laporan</a>
+        <button class="icon-button" id="theme-toggle" type="button" aria-label="Aktifkan mode gelap" title="Ganti tema">☾</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero reveal" aria-labelledby="hero-title">
+        <div>
+          <div class="eyebrow">Desk research · 18 September 2026</div>
+          <h1 id="hero-title">Temukan kebocoran margin sebelum proyek terlambat.</h1>
+          <p class="hero-copy">Riset ini memetakan celah di workflow konstruksi Indonesia yang paling masuk akal dipermudah dengan tools digital—dengan fokus pada kontraktor dan subkontraktor kecil-menengah.</p>
+        </div>
+        <div class="hero-note"><strong>Project Margin Control</strong>Hipotesis produk utama: hubungkan RAB, progress lapangan, biaya aktual, pekerjaan tambah, dan bukti penagihan.</div>
+      </section>
+
+      <section class="filterbar" aria-label="Filter peluang">
+        <span class="filter-label">Tampilkan:</span>
+        <button class="filter" type="button" data-filter="all" aria-pressed="true">Semua peluang</button>
+        <button class="filter" type="button" data-filter="operational" aria-pressed="false">Operasional</button>
+        <button class="filter" type="button" data-filter="commercial" aria-pressed="false">Komersial</button>
+        <button class="filter" type="button" data-filter="field" aria-pressed="false">Lapangan</button>
+        <button class="filter" type="button" data-filter="safety" aria-pressed="false">Safety</button>
+        <span class="filter-spacer"></span>
+        <span class="view-note" id="filter-status" aria-live="polite">9 peluang ditampilkan</span>
+      </section>
+
+      <section class="kpi-grid" aria-label="Ringkasan riset">
+        <article class="kpi reveal"><span class="kpi-label">Peluang dipetakan</span><strong class="kpi-value">09</strong><span class="kpi-detail">di seluruh workflow proyek</span></article>
+        <article class="kpi reveal"><span class="kpi-label">Skor tertinggi</span><strong class="kpi-value kpi-accent">23/25</strong><span class="kpi-detail">cost control & daily evidence</span></article>
+        <article class="kpi reveal"><span class="kpi-label">Sumber utama</span><strong class="kpi-value">08</strong><span class="kpi-detail">studi dan publikasi akademik</span></article>
+        <article class="kpi reveal"><span class="kpi-label">Validasi berikutnya</span><strong class="kpi-value">18</strong><span class="kpi-detail">wawancara target pengguna</span></article>
+      </section>
+
+      <section aria-labelledby="priority-title">
+        <div class="section-heading"><div><h2 id="priority-title">Di mana peluang paling kuat?</h2><p>Skor indikatif menggabungkan pain, frekuensi, potensi bayar, reach, dan kemudahan MVP.</p></div><span class="section-kicker">Skala 1—5 per dimensi</span></div>
+        <div class="chart-grid">
+          <article class="panel panel-pad">
+            <h3 class="chart-title">Ranking prioritas</h3>
+            <p class="chart-subtitle">Total skor dari 25. Hover atau fokus bar untuk melihat nilai.</p>
+            <div class="legend"><span class="legend-item"><i class="legend-dot"></i>Semakin panjang, semakin layak divalidasi</span></div>
+            <div class="bar-chart" id="bar-chart" aria-label="Bar chart ranking peluang"></div>
+          </article>
+          <article class="panel panel-pad">
+            <h3 class="chart-title">Matriks opportunity</h3>
+            <p class="chart-subtitle">Pojok kanan atas = dampak tinggi dan lebih mudah dijangkau.</p>
+            <div class="matrix-wrap">
+              <div class="matrix" id="matrix" role="img" aria-label="Matriks dampak dan kemudahan dijangkau">
+                <span class="axis-y"><span>tinggi</span><span>sedang</span><span>rendah</span></span>
+                <span class="axis-x"><span>sulit</span><span>sedang</span><span>mudah</span></span>
+                <span class="axis-caption x">Kemudahan dijangkau</span><span class="axis-caption y">Dampak masalah</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="workflow-title">
+        <div class="section-heading"><div><h2 id="workflow-title">Workflow produk yang disarankan</h2><p>Jangan mulai dari ERP besar. Mulai dari aliran bukti yang menghasilkan keputusan komersial.</p></div></div>
+        <div class="workflow" aria-label="Alur produk Project Margin Control">
+          <div class="workflow-step"><span class="step-no">01</span><strong class="step-title">Impor RAB / BOQ</strong><span class="step-desc">Anggaran menjadi baseline.</span></div>
+          <div class="workflow-step"><span class="step-no">02</span><strong class="step-title">Catat progress</strong><span class="step-desc">Volume, foto, dan kendala.</span></div>
+          <div class="workflow-step"><span class="step-no">03</span><strong class="step-title">Masukkan biaya</strong><span class="step-desc">Pembelian dan subkontrak.</span></div>
+          <div class="workflow-step"><span class="step-no">04</span><strong class="step-title">Dokumentasikan issue</strong><span class="step-desc">Rework dan penyebabnya.</span></div>
+          <div class="workflow-step"><span class="step-no">05</span><strong class="step-title">Catat perubahan</strong><span class="step-desc">Variation order dan approval.</span></div>
+          <div class="workflow-step"><span class="step-no">06</span><strong class="step-title">Forecast margin</strong><span class="step-desc">Budget vs actual vs forecast.</span></div>
+          <div class="workflow-step"><span class="step-no">07</span><strong class="step-title">Tagihkan</strong><span class="step-desc">Laporan owner dan billing.</span></div>
+        </div>
+      </section>
+
+      <section aria-labelledby="shortlist-title">
+        <div class="section-heading"><div><h2 id="shortlist-title">Shortlist untuk divalidasi</h2><p>Tiga wedge produk dengan dampak uang paling jelas.</p></div><a class="section-kicker" href="docs/riset-celah-tools-konstruksi-indonesia.md#tiga-peluang-terbaik">Lihat alasan →</a></div>
+        <div class="opportunity-list">
+          <article class="opportunity"><div class="opportunity-top"><span class="opportunity-rank">01 · REKOMENDASI</span><span class="score-pill">23/25</span></div><h3>Construction Cost Leakage Control</h3><p>Bandingkan budget, progress, biaya aktual, dan forecast agar kebocoran margin terlihat sebelum terlambat.</p><div class="tag-row"><span class="tag">RAB → actual</span><span class="tag">Forecast</span><span class="tag">Excel-first</span></div></article>
+          <article class="opportunity"><div class="opportunity-top"><span class="opportunity-rank">02 · WEDGE</span><span class="score-pill">22/25</span></div><h3>Variation Order & Claim Evidence</h3><p>Ubah instruksi, foto, volume, dan approval yang tercecer menjadi bukti pekerjaan tambah yang dapat ditagihkan.</p><div class="tag-row"><span class="tag">Change order</span><span class="tag">Evidence</span><span class="tag">Billing</span></div></article>
+          <article class="opportunity"><div class="opportunity-top"><span class="opportunity-rank">03 · OPSIONAL</span><span class="score-pill">22/25</span></div><h3>Material Control untuk Proyek</h3><p>Hubungkan kebutuhan pekerjaan, pembelian, penerimaan, dan penggunaan material tanpa membangun marketplace dulu.</p><div class="tag-row"><span class="tag">Procurement</span><span class="tag">Stock</span><span class="tag">Vendor</span></div></article>
+        </div>
+      </section>
+
+      <section aria-labelledby="table-title">
+        <div class="section-heading"><div><h2 id="table-title">Peta peluang lengkap</h2><p>Gunakan filter di atas untuk menyaring tabel dan visual.</p></div><span class="section-kicker">Data terbuka di tabel</span></div>
+        <div class="panel panel-pad table-wrap">
+          <table>
+            <caption class="sr-only">Daftar peluang tools konstruksi dan skor prioritasnya</caption>
+            <thead><tr><th>Peluang</th><th>Kategori</th><th>Masalah inti</th><th>Score</th><th>Prioritas</th></tr></thead>
+            <tbody id="opportunity-table"></tbody>
+          </table>
+          <div class="empty-state" id="empty-state" hidden>Tidak ada peluang pada filter ini.</div>
+        </div>
+      </section>
+
+      <section aria-labelledby="source-title">
+        <div class="section-heading"><div><h2 id="source-title">Bukti dan langkah berikutnya</h2><p>Riset ini adalah hipotesis terarah—bukan pengganti wawancara pelanggan.</p></div></div>
+        <div class="sources">
+          <a class="source" href="https://doi.org/10.1088/1755-1315/506/1/012039" target="_blank" rel="noreferrer"><span class="source-no">01</span><span><strong>Cost Overrun in Construction Projects in Indonesia</strong><span>IOP · rework dinilai faktor utama</span></span></a>
+          <a class="source" href="https://doi.org/10.1371/journal.pone.0263337" target="_blank" rel="noreferrer"><span class="source-no">02</span><span><strong>Causes of delays in construction projects in Aceh</strong><span>PLOS ONE · 60 faktor keterlambatan</span></span></a>
+          <a class="source" href="https://doi.org/10.3390/ijerph17207462" target="_blank" rel="noreferrer"><span class="source-no">03</span><span><strong>Safety Climate in Indonesian Construction</strong><span>IJERPH · komunikasi dan monitoring</span></span></a>
+          <a class="source" href="https://doi.org/10.1051/matecconf/201925802006" target="_blank" rel="noreferrer"><span class="source-no">04</span><span><strong>BIM Adoption in Indonesia Construction</strong><span>MATEC · manfaat vs hambatan adopsi</span></span></a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer"><span>Desk research · 18 September 2026 · Status: perlu validasi pelanggan</span><span><a href="docs/riset-celah-tools-konstruksi-indonesia.md">Laporan lengkap</a> · <a href="https://github.com/pippoauliaa-dev/riset-tools-konstruksi">GitHub</a></span></footer>
+  </div>
+
+  <script>
+    const opportunities = [
+      { name: 'RAB-to-actual cost control', category: 'operational', categoryLabel: 'Operasional', score: 23, impact: 92, reach: 78, priority: 'Sangat tinggi', problem: 'Budget, progress, dan biaya aktual belum tersambung.' },
+      { name: 'Daily site evidence', category: 'field', categoryLabel: 'Lapangan', score: 23, impact: 70, reach: 88, priority: 'Sangat tinggi', problem: 'Laporan, foto, kendala, dan progress tersebar.' },
+      { name: 'Variation order & claim evidence', category: 'commercial', categoryLabel: 'Komersial', score: 22, impact: 88, reach: 68, priority: 'Sangat tinggi', problem: 'Perubahan pekerjaan sulit dibuktikan dan ditagihkan.' },
+      { name: 'Material request-to-delivery', category: 'operational', categoryLabel: 'Operasional', score: 22, impact: 82, reach: 72, priority: 'Sangat tinggi', problem: 'Pembelian dan kebutuhan lapangan tidak sinkron.' },
+      { name: 'Quality punchlist / NCR', category: 'field', categoryLabel: 'Lapangan', score: 21, impact: 73, reach: 70, priority: 'Tinggi', problem: 'Issue mutu tidak selalu punya owner dan tenggat.' },
+      { name: 'Subcontractor progress / payment', category: 'commercial', categoryLabel: 'Komersial', score: 20, impact: 86, reach: 48, priority: 'Tinggi', problem: 'Progress, opname, retensi, dan invoice sulit direkonsiliasi.' },
+      { name: 'Workforce attendance / productivity', category: 'field', categoryLabel: 'Lapangan', score: 20, impact: 66, reach: 76, priority: 'Tinggi', problem: 'Kehadiran tenaga kerja belum terhubung ke output.' },
+      { name: 'Safety / near-miss workflow', category: 'safety', categoryLabel: 'Safety', score: 19, impact: 78, reach: 45, priority: 'Menengah', problem: 'Pelaporan, monitoring, dan tindakan korektif lemah.' },
+      { name: 'Drawing revision / BIM-lite', category: 'operational', categoryLabel: 'Operasional', score: 16, impact: 54, reach: 42, priority: 'Validasi nanti', problem: 'Revisi gambar dan issue sulit dilacak tanpa BIM penuh.' }
+    ];
+
+    const barChart = document.querySelector('#bar-chart');
+    const tableBody = document.querySelector('#opportunity-table');
+    const matrix = document.querySelector('#matrix');
+    const emptyState = document.querySelector('#empty-state');
+    const filterStatus = document.querySelector('#filter-status');
+    const filters = [...document.querySelectorAll('.filter')];
+    let activeFilter = 'all';
+
+    function makeElement(tag, className, text) {
+      const node = document.createElement(tag);
+      if (className) node.className = className;
+      if (text !== undefined) node.textContent = text;
+      return node;
+    }
+
+    function visibleData() {
+      return activeFilter === 'all' ? opportunities : opportunities.filter(item => item.category === activeFilter);
+    }
+
+    function renderBars(data) {
+      barChart.replaceChildren();
+      data.forEach(item => {
+        const row = makeElement('div', 'bar-row');
+        row.title = `${item.name}: ${item.score} dari 25`;
+        const label = makeElement('span', 'bar-label', item.name);
+        const track = makeElement('span', 'bar-track');
+        const fill = makeElement('span', 'bar-fill');
+        fill.style.width = `${(item.score / 25) * 100}%`;
+        const value = makeElement('span', 'bar-value', item.score);
+        track.append(fill); row.append(label, track, value); barChart.append(row);
+      });
+    }
+
+    function renderMatrix(data) {
+      matrix.querySelectorAll('.matrix-dot, .matrix-tip').forEach(node => node.remove());
+      data.forEach(item => {
+        const dot = makeElement('button', `matrix-dot ${item.score >= 22 ? 'priority-high' : item.score >= 20 ? 'priority-mid' : 'priority-low'}`);
+        dot.type = 'button';
+        dot.style.left = `${item.reach}%`;
+        dot.style.bottom = `${item.impact}%`;
+        dot.setAttribute('aria-label', `${item.name}: dampak ${item.impact}, kemudahan dijangkau ${item.reach}`);
+        dot.title = `${item.name} · dampak ${item.impact} · reach ${item.reach}`;
+        const tip = makeElement('span', 'matrix-tip');
+        tip.style.left = `${Math.min(item.reach + 3, 72)}%`;
+        tip.style.bottom = `${Math.min(item.impact + 5, 77)}%`;
+        const tipTitle = makeElement('strong', '', item.name);
+        const tipDetail = makeElement('span', '', `Dampak ${item.impact} · reach ${item.reach} · skor ${item.score}/25`);
+        tip.append(tipTitle, tipDetail);
+        matrix.append(dot, tip);
+      });
+    }
+
+    function renderTable(data) {
+      tableBody.replaceChildren();
+      emptyState.hidden = data.length !== 0;
+      data.forEach(item => {
+        const row = document.createElement('tr');
+        const name = makeElement('td', '', item.name);
+        const category = makeElement('td');
+        category.append(makeElement('span', `category-chip ${item.category}`, item.categoryLabel));
+        const problem = makeElement('td', '', item.problem);
+        const score = makeElement('td', 'score-cell', `${item.score}/25`);
+        const priority = makeElement('td', '', item.priority);
+        row.append(name, category, problem, score, priority); tableBody.append(row);
+      });
+    }
+
+    function render() {
+      const data = visibleData();
+      renderBars(data); renderMatrix(data); renderTable(data);
+      filterStatus.textContent = `${data.length} peluang ditampilkan`;
+    }
+
+    filters.forEach(filter => filter.addEventListener('click', () => {
+      activeFilter = filter.dataset.filter;
+      filters.forEach(button => button.setAttribute('aria-pressed', String(button === filter)));
+      render();
+    }));
+
+    const themeToggle = document.querySelector('#theme-toggle');
+    const storedTheme = localStorage.getItem('konstruksi-theme');
+    if (storedTheme) document.documentElement.dataset.theme = storedTheme;
+    function updateThemeButton() {
+      const dark = document.documentElement.dataset.theme === 'dark';
+      themeToggle.textContent = dark ? '☀' : '☾';
+      themeToggle.setAttribute('aria-label', dark ? 'Aktifkan mode terang' : 'Aktifkan mode gelap');
+    }
+    themeToggle.addEventListener('click', () => {
+      const dark = document.documentElement.dataset.theme === 'dark';
+      document.documentElement.dataset.theme = dark ? 'light' : 'dark';
+      localStorage.setItem('konstruksi-theme', dark ? 'light' : 'dark');
+      updateThemeButton();
+    });
+    updateThemeButton();
+    render();
+  </script>
+</body>
+</html>
